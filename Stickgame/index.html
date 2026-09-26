@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Stick Game</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #111; font-family: sans-serif; overflow: hidden; touch-action: none; user-select: none; }
+        #gameCanvas { display: none; background: #1a1a24; margin: 0 auto; box-shadow: 0 0 20px rgba(0,0,0,0.8); }
+        #mainMenu { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background: #111319; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px; z-index: 10; }
+        #menuTitle { color: #ff3333; font-size: 48px; font-weight: bold; font-family: 'Arial Black', sans-serif; text-shadow: 0 0 15px rgba(255, 51, 51, 0.6); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+        .menu-btn { width: 220px; height: 60px; background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.4); border-radius: 12px; color: white; font-size: 20px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; text-transform: uppercase; transition: 0.2s; }
+        .menu-btn:active { background: rgba(255, 51, 51, 0.3); border-color: #ff3333; box-shadow: 0 0 10px #ff3333; }
+        .controls { position: absolute; bottom: 20px; left: 20px; right: 20px; display: none; justify-content: space-between; pointer-events: none; }
+        .btn-group { display: flex; gap: 15px; pointer-events: auto; }
+        .btn { width: 75px; height: 75px; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.6); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-size: 32px; font-weight: bold; }
+        .btn:active { background: rgba(255,255,255,0.4); }
+        
+        /* Игровой UI */
+        #ui { position: absolute; top: 15px; left: 15px; right: 15px; color: white; font-size: 20px; font-weight: bold; pointer-events: none; text-shadow: 1px 1px 3px #000; display: none; }
+        .ui-container { display: flex; justify-content: space-between; width: 100%; max-width: 800px; margin: 0 auto; }
+        
+        .comic-screen { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 20; padding: 10px; }
+        .comic-img { max-width: 100%; max-height: 65vh; border: 3px solid #333; border-radius: 8px; object-fit: contain; }
+        .comic-btn { margin-top: 20px; width: 180px; height: 50px; background: #ff3333; border: none; border-radius: 10px; color: white; font-size: 18px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        .comic-btn:active { background: #cc0000; }
+
+        /* Экран результатов */
+        #resultsContainer { display: none; margin-top: 20px; background: rgba(255, 255, 255, 0.05); border: 2px solid rgba(255, 255, 255, 0.2); padding: 20px; border-radius: 12px; min-width: 280px; text-align: center; color: white; }
+        .result-item { font-size: 22px; margin: 10px 0; font-weight: bold; }
+        .result-val { color: #ff3333; text-shadow: 0 0 5px rgba(255, 51, 51, 0.4); }
+    </style>
+</head>
+<body>
+    <audio id="bgMusic" src="music.mp3" loop></audio>
+    <audio id="bossMusic" src="boss.mp3" loop></audio>
+
+    <div id="introScreen" class="comic-screen">
+        <img src="intro.png" class="comic-img" alt="Сюжет">
+        <button id="introNextBtn" class="comic-btn">Далее →</button>
+    </div>
+
+    <div id="outroScreen" class="comic-screen">
+        <!-- Сюда подгрузится либо комикс, либо финальные результаты -->
+        <img id="outroImg" src="outro.png" class="comic-img" alt="Финал">
+        
+        <div id="resultsContainer">
+            <h2 style="color: #00ff66; margin-bottom: 15px; font-size: 28px;">РЕЗУЛЬТАТЫ</h2>
+            <div class="result-item">Время: <span id="resTime" class="result-val">00:00</span></div>
+            <div class="result-item">Смертей: <span id="resDeaths" class="result-val">0</span></div>
+        </div>
+
+        <button id="outroCloseBtn" class="comic-btn">Далее →</button>
+    </div>
+
+    <div id="mainMenu">
+        <div id="menuTitle">STICK GAME</div>
+        <div class="menu-btn" id="startBtn">Играть</div>
+        <div class="menu-btn" id="loadBtn">Продолжить</div>
+    </div>
+    
+    <div id="ui">
+        <div class="ui-container">
+            <div>Уровень: <span id="levelNum">1</span></div>
+            <div>Смертей: <span id="deathCount" style="color: #ff3333;">0</span></div>
+        </div>
+    </div>
+    
+    <canvas id="gameCanvas"></canvas>
+    <div class="controls" id="gameControls">
+        <div class="btn-group">
+            <div class="btn" id="btnLeft">←</div>
+            <div class="btn" id="btnRight">→</div>
+        </div>
+        <div class="btn-group">
+            <div class="btn" id="btnJump">↑</div>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
