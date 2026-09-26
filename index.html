@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Stickgame Антология</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: sans-serif;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        h1 { 
+            color: #00ffcc; 
+            font-size: 28px;
+            margin-top: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 340px;
+            margin: 30px auto;
+        }
+        .btn {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            border: 2px solid #00ffcc;
+            padding: 12px 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 255, 204, 0.1);
+            
+            /* Включаем выравнивание иконки и текста в одну линию */
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-align: left;
+        }
+        .btn img {
+            width: 50px;         /* Ширина иконки */
+            height: 50px;        /* Высота иконки */
+            border-radius: 8px;  /* Скругление углов иконки */
+            object-fit: cover;   /* Чтобы картинка не сжималась уродливо */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .btn:active, .btn:hover {
+            background-color: #00ffcc;
+            color: #121212;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Stickgame Серия игр</h1>
+    
+    <div class="menu">
+        <!-- Кнопки ведут в папки, а картинки берутся из папок этих частей -->
+        <a class="btn" href="Stickgame/index.html">
+            <img src="Stickgame/icon.png" alt="Icon 1">
+            <span>Stickgame 1</span>
+        </a>
+        
+        <a class="btn" href="Stickgame2/index.html">
+            <img src="Stickgame2/icon.png" alt="Icon 2">
+            <span>Stickgame 2</span>
+        </a>
+        
+        <a class="btn" href="Stickgame3/index.html">
+            <img src="Stickgame3/icon.png" alt="Icon 3">
+            <span>Stickgame 3</span>
+        </a>
+        
+        <a class="btn" href="Stickgame4/index.html">
+            <img src="Stickgame4/icon.png" alt="Icon 4">
+            <span>Stickgame 4</span>
+        </a>
+    </div>
+
+</body>
+</html>
