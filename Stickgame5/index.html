@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Stick Game: Chapter 5 - Dark Forest</title>
+    <style>
+        body { margin: 0; padding: 0; background: #000; font-family: sans-serif; color: #888; user-select: none; overflow: hidden; }
+        #gameContainer { position: relative; width: 100vw; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        canvas { display: none; background: #000; box-shadow: 0 0 20px rgba(50,15,80,0.5); border: 2px solid #3a1050; max-width: 100%; }
+        
+        .screen { display: flex; flex-direction: column; justify-content: center; align-items: center; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10; text-align: center; padding: 20px; box-sizing: border-box; }
+        #introScreen, #outroScreen { display: none; background: #040108; border: 4px solid #1a331e; }
+        
+        h1 { color: #4a1d6d; font-size: 2.5rem; margin-bottom: 10px; text-shadow: 0 0 10px #142917; }
+        h3 { color: #1a331e; text-shadow: 0 0 5px #000; }
+        .comic-box { width: 90%; max-width: 600px; min-height: 250px; border: 3px dashed #3a1050; margin: 15px 0; background: #020104; display: flex; justify-content: center; align-items: center; border-radius: 8px; }
+        
+        .btn { background: #3a1050; color: #999; border: 2px solid #1a331e; padding: 12px 35px; font-size: 1.2rem; font-weight: bold; cursor: pointer; border-radius: 5px; margin-top: 15px; box-shadow: 0 4px 10px rgba(58,16,80,0.4); }
+        .btn:active { transform: scale(0.95); }
+        
+        #ui { display: none; width: 100%; max-width: 800px; justify-content: space-between; padding: 10px; box-sizing: border-box; font-size: 1.1rem; font-weight: bold; background: rgba(5,2,10,0.9); border-bottom: 2px solid #1a331e; }
+        #bossTimerContainer { display: none; color: #1a331e; text-shadow: 0 0 5px #3a1050; }
+        
+        #gameControls { display: none; width: 100%; max-width: 800px; justify-content: space-between; padding: 15px 20px; box-sizing: border-box; background: #020104; }
+        .control-group { display: flex; gap: 15px; }
+        .ctrl-btn { width: 65px; height: 65px; background: #05020a; border: 2px solid #1a331e; color: #666; font-size: 1.8rem; font-weight: bold; border-radius: 50%; display: flex; justify-content: center; align-items: center; touch-action: none; }
+        .ctrl-btn:active { background: #1a331e; color: #fff; box-shadow: 0 0 15px #1a331e; }
+    </style>
+</head>
+<body>
+
+<div id="gameContainer">
+    <!-- ГЛАВНОЕ МЕНЮ -->
+    <div id="mainMenu" class="screen">
+        <h1>STICK GAME</h1>
+        <h3 style="margin-top: 0;">Глава 5: Тёмный Мир</h3>
+        <button id="startBtn" class="btn">ИГРАТЬ</button>
+    </div>
+
+    <!-- НАЧАЛЬНЫЙ КОМИКС -->
+    <div id="introScreen" class="screen">
+        <h1>ГЛАВА 5</h1>
+        <div class="comic-box">
+            <img src="intro_comic.png" style="max-width: 100%; max-height: 60vh;">
+        </div>
+        <button id="introNextBtn" class="btn">В ПУТЬ! →</button>
+    </div>
+
+    <!-- ИГРОВОЙ ИНТЕРФЕЙС -->
+    <div id="ui">
+        <div>Уровень: <span id="levelNum" style="color:#4a1d6d;">1</span></div>
+        <div id="bossTimerContainer">СТАТУС: <span id="bossTimer">Выживание</span></div>
+        <div>Смертей: <span id="deathCount" style="color:#1a331e;">0</span></div>
+    </div>
+
+    <!-- ИГРОВОЙ ЭКРАН -->
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- СЕНСОРНОЕ УПРАВЛЕНИЕ -->
+    <div id="gameControls">
+        <div class="control-group">
+            <div id="btnLeft" class="ctrl-btn">←</div>
+            <div id="btnRight" class="ctrl-btn">→</div>
+        </div>
+        <div id="btnJump" class="ctrl-btn">↑</div>
+    </div>
+
+    <!-- ФИНАЛЬНЫЙ КОМИКС -->
+    <div id="outroScreen" class="screen">
+        <h1>ФИНАЛ ГЛАВЫ</h1>
+        <div class="comic-box">
+            <img src="outro_comic.png" style="max-width: 100%; max-height: 60vh;">
+        </div>
+        <div style="font-size: 1.2rem; margin: 10px 0;">Всего смертей: <span id="resDeaths" style="color:#4a1d6d; font-weight:bold;">0</span></div>
+        <button id="outroCloseBtn" class="btn">В Меню →</button>
+    </div>
+</div>
+
+<audio id="bgMusic" loop src="dark_bg.mp3"></audio>
+<audio id="bossMusic" loop src="boss_theme.mp3"></audio>
+
+<script src="game.js"></script>
+</body>
+</html>
